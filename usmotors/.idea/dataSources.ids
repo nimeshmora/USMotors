@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - ues@localhost" uuid="5713a8fc-2973-4be9-8dd6-c436b44db4b3">
+    <database-info product="MySQL" version="5.6.24" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="ues"/>
+    <table name="customer" schema="" catalog="ues" type="TABLE">
+      <column name="c_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="c_name" sqlType="VARCHAR" precision="400" scale="0" nullable="false" jdbcType="12"/>
+      <column name="c_address" sqlType="VARCHAR" precision="600" scale="0" nullable="false" jdbcType="12"/>
+      <column name="c_phone" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="c_login_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="c_id"/>
+      <foreign-key name="log_id TO Customer" columns="c_login_id" ref-table="user" ref-schema="" ref-catalog="ues" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="customer_id TO order" table="order" schema="" catalog="ues" columns="customer_id"/>
+    </table>
+    <table name="employee" schema="" catalog="ues" type="TABLE">
+      <column name="emp_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="emp_name" sqlType="VARCHAR" precision="400" scale="0" nullable="false" jdbcType="12"/>
+      <column name="emp_designation" sqlType="VARCHAR" precision="400" scale="0" nullable="false" jdbcType="12"/>
+      <column name="emp_tp" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="emp_email" sqlType="VARCHAR" precision="400" scale="0" nullable="false" jdbcType="12"/>
+      <column name="emp_descrip" sqlType="VARCHAR" precision="600" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="emp_id"/>
+    </table>
+    <table name="order" schema="" catalog="ues" type="TABLE">
+      <column name="order_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="product_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="order_date" sqlType="VARCHAR" precision="400" scale="0" nullable="false" jdbcType="12"/>
+      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="quantity" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="order_id"/>
+      <foreign-key name="customer_id TO order" columns="customer_id" ref-table="customer" ref-schema="" ref-catalog="ues" ref-columns="c_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="stock_id TO order" columns="product_id" ref-table="stock" ref-schema="" ref-catalog="ues" ref-columns="s_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="product_id" unique="false" columns="customer_id"/>
+    </table>
+    <table name="stock" schema="" catalog="ues" type="TABLE">
+      <column name="s_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="s_name" sqlType="VARCHAR" precision="600" scale="0" nullable="false" jdbcType="12"/>
+      <column name="s_quantity" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="s_price" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="s_min_level" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="s_max_level" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="sup_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="s_id"/>
+      <foreign-key name="sup_id TO stock" columns="sup_id" ref-table="supplier" ref-schema="" ref-catalog="ues" ref-columns="sup_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="stock_id TO order" table="order" schema="" catalog="ues" columns="product_id"/>
+    </table>
+    <table name="supplier" schema="" catalog="ues" type="TABLE">
+      <column name="sup_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="sup_name" sqlType="VARCHAR" precision="600" scale="0" nullable="false" jdbcType="12"/>
+      <column name="sup_address" sqlType="VARCHAR" precision="600" scale="0" nullable="false" jdbcType="12"/>
+      <column name="sup_phone" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="sup_id"/>
+      <exported-key name="sup_id TO stock" table="stock" schema="" catalog="ues" columns="sup_id"/>
+    </table>
+    <table name="user" schema="" catalog="ues" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="username" sqlType="VARCHAR" precision="400" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="400" scale="0" nullable="false" jdbcType="12"/>
+      <column name="u_role" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="remember_token" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="log_id TO Customer" table="customer" schema="" catalog="ues" columns="c_login_id"/>
+    </table>
+  </data-source>
+</component>
